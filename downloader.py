@@ -12,9 +12,9 @@ for target in config["targets"]:
     print(f"Downloading {target['name']}")
 
     s = requests.Session()
-    s.headers["User-Agent"] = (
-        "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/110.0",
-    )
+    s.headers[
+        "User-Agent"
+    ] = "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/110.0"
     s.headers["Host"] = "video.ethz.ch"
     s.headers["DNT"] = "1"
     s.headers["Upgrade-Insecure-Requests"] = "1"
@@ -85,14 +85,15 @@ for target in config["targets"]:
             + datetime.strftime(iso_date, date_format)
             + ".mp4"
         )
-        if not os.path.exists(target["name"] + file_name) or config["redownload"]:
+        if (not os.path.exists(target["name"] + "/" + file_name)) or config["redownload"]:
             if not os.path.exists(target["name"]):
                 os.mkdir(target["name"])
             ep_metadata = json.loads(
                 s.get(base_url + "/" + ep["id"] + ".series-metadata.json").text
             )
             video_url = ep_metadata["selectedEpisode"]["media"]["presentations"][0]["url"]
-            print(f"Downloading {file_name} ({idx+1}/{len(episodes)} from {video_url}")
+            print(f"Downloading {file_name} ({idx+1}/{len(episodes)}) from {video_url}")
             urllib.request.urlretrieve(video_url, target["name"] + "/" + file_name)
-
+        else:
+            print(f"Skipping {file_name} ({idx+1}/{len(episodes)})")
     s.close()
