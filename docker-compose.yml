@@ -1,0 +1,8 @@
+version: '3'
+services:
+    downloader:    
+        build:
+            context: . # Use an image built from the specified dockerfile in the current directory.
+            dockerfile: Dockerfile
+        volumes:
+            - ./:/app # Mount the current directory to the /app directory in the container.

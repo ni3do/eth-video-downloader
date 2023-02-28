@@ -1,0 +1,12 @@
+{
+    "redownload": false,
+    "targets": [
+        {
+            "name": "cil",
+            "url": "https://video.ethz.ch/lectures/d-infk/2023/spring/263-5255-00L.html",
+            "eth-login": false,
+            "username": "MyUsername",
+            "password": "MyPassword"
+        }
+    ]
+}
