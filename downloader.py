@@ -93,7 +93,7 @@ async def main():
             if (
                 not os.path.exists(config["target_dir"] + "/" + target["name"] + "/" + file_name)
             ) or config["redownload"]:
-                if not os.path.exists(target["name"]):
+                if not os.path.exists(config["target_dir"] + "/" + target["name"]):
                     os.mkdir(config["target_dir"] + "/" + target["name"])
                 ep_metadata = json.loads(
                     s.get(base_url + "/" + ep["id"] + ".series-metadata.json").text
