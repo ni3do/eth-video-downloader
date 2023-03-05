@@ -90,15 +90,19 @@ async def main():
                 + datetime.strftime(iso_date, date_format)
                 + ".mp4"
             )
-            if (not os.path.exists(target["name"] + "/" + file_name)) or config["redownload"]:
+            if (
+                not os.path.exists(config["target_dir"] + "/" + target["name"] + "/" + file_name)
+            ) or config["redownload"]:
                 if not os.path.exists(target["name"]):
-                    os.mkdir(target["name"])
+                    os.mkdir(config["target_dir"] + "/" + target["name"])
                 ep_metadata = json.loads(
                     s.get(base_url + "/" + ep["id"] + ".series-metadata.json").text
                 )
                 video_url = ep_metadata["selectedEpisode"]["media"]["presentations"][0]["url"]
                 print(f"Downloading {file_name} ({idx+1}/{len(episodes)}) from {video_url}")
-                urllib.request.urlretrieve(video_url, target["name"] + "/" + file_name)
+                urllib.request.urlretrieve(
+                    video_url, config["target_dir"] + "/" + target["name"] + "/" + file_name
+                )
                 async with aiohttp.ClientSession() as session:
                     webhook = Webhook.from_url(config["webhook"], session=session)
                     embed = Embed()
