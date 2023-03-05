@@ -1,5 +1,6 @@
 {
     "redownload": false,
+    "webhook": "https://discord.com/api/webhooks/1234567890/abcdefghijklmnopqrstuvwxyz",
     "targets": [
         {
             "name": "cil",
